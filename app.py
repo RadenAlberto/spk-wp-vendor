@@ -11,13 +11,14 @@ st.set_page_config(
 )
 
 # =========================
-# STYLE & CSS (KONTRAS TINGGI & MODERN)
+# STYLE 100% FULL DARK THEME (HIGH CONTRAST)
 # =========================
 st.markdown("""
 <style>
-/* Background halaman abu-abu elegan, bukan putih silau */
+/* Background Utama Full Dark */
 .stApp { 
-    background-color: #e9edf4 !important; 
+    background-color: #0b0f19 !important; 
+    color: #f8fafc !important;
 }
 
 .block-container { 
@@ -25,12 +26,25 @@ st.markdown("""
     max-width: 1450px; 
 }
 
+/* Pastikan semua judul dan teks selalu putih/kontras */
+h1, h2, h3, h4, h5, h6 {
+    color: #ffffff !important;
+    font-weight: 700 !important;
+}
+p, span, label {
+    color: #cbd5e1 !important;
+}
+
+.stCaption, [data-testid="stCaptionContainer"] p {
+    color: #94a3b8 !important;
+}
+
 /* Hero Header */
 .hero {
     padding: 24px 30px;
     border-radius: 16px;
-    background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #1e3a8a 100%);
-    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.15);
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 50%, #1e3a8a 100%);
+    box-shadow: 0 8px 24px rgba(0, 0, 0, 0.5);
     border: 1px solid #334155;
     margin-bottom: 20px;
 }
@@ -43,48 +57,64 @@ st.markdown("""
 .hero p { 
     margin: 6px 0 0; 
     font-size: 14px;
-    color: #cbd5e1 !important; 
+    color: #94a3b8 !important; 
 }
 
-/* Metric Cards */
+/* Styling TAB Navigasi agar sangat jelas terbaca */
+button[data-baseweb="tab"] {
+    color: #94a3b8 !important;
+    font-size: 15px !important;
+    font-weight: 600 !important;
+    padding-bottom: 8px !important;
+}
+button[data-baseweb="tab"]:hover {
+    color: #e2e8f0 !important;
+}
+button[data-baseweb="tab"][aria-selected="true"] {
+    color: #60a5fa !important;
+    border-bottom-color: #3b82f6 !important;
+}
+
+/* Metric Cards Dark */
 [data-testid="stMetric"] {
-    background-color: #ffffff !important;
-    border: 1px solid #cbd5e1 !important;
+    background-color: #151c2c !important;
+    border: 1px solid #334155 !important;
     padding: 14px 18px !important;
     border-radius: 12px !important;
-    box-shadow: 0 3px 6px rgba(15, 23, 42, 0.04) !important;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3) !important;
 }
 [data-testid="stMetricLabel"] p {
-    color: #475569 !important;
+    color: #94a3b8 !important;
     font-weight: 600 !important;
     font-size: 13px !important;
 }
 [data-testid="stMetricValue"] div {
-    color: #0f172a !important;
+    color: #ffffff !important;
     font-weight: 800 !important;
     font-size: 24px !important;
 }
 
-/* PODIUM KARTU TOP 3 */
+/* PODIUM KARTU TOP 3 (DARK THEME) */
 .podium-card {
-    background: #ffffff;
+    background: #151c2c;
     border-radius: 14px;
-    padding: 20px;
+    padding: 22px;
     text-align: center;
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.07);
-    border: 1px solid #cbd5e1;
+    box-shadow: 0 6px 18px rgba(0, 0, 0, 0.4);
+    border: 1px solid #334155;
     height: 100%;
 }
 .podium-1 {
-    border-top: 6px solid #eab308; /* Gold */
-    background: linear-gradient(180deg, #fefce8 0%, #ffffff 100%);
-    box-shadow: 0 6px 20px rgba(234, 179, 8, 0.18);
+    border: 2px solid #eab308;
+    border-top: 6px solid #eab308;
+    background: linear-gradient(180deg, #242013 0%, #151c2c 100%);
+    box-shadow: 0 8px 24px rgba(234, 179, 8, 0.25);
 }
 .podium-2 {
-    border-top: 6px solid #94a3b8; /* Silver */
+    border-top: 6px solid #94a3b8;
 }
 .podium-3 {
-    border-top: 6px solid #b45309; /* Bronze */
+    border-top: 6px solid #d97706;
 }
 .podium-rank {
     font-size: 24px;
@@ -94,34 +124,43 @@ st.markdown("""
 .podium-title {
     font-size: 20px;
     font-weight: 800;
-    color: #0f172a;
-    margin-bottom: 4px;
+    color: #ffffff !important;
+    margin-bottom: 6px;
 }
 .podium-score {
     font-size: 14px;
-    color: #475569;
+    color: #cbd5e1 !important;
 }
 
 /* Executive Summary Box */
 .summary-box {
-    background: #f0fdf4;
-    border: 1px solid #86efac;
-    border-left: 6px solid #16a34a;
+    background: rgba(6, 78, 59, 0.25);
+    border: 1px solid #059669;
+    border-left: 6px solid #10b981;
     padding: 16px 20px;
     border-radius: 12px;
     margin: 15px 0 20px;
-    color: #14532d;
+    color: #a7f3d0 !important;
+}
+.summary-box b {
+    color: #34d399 !important;
 }
 
 /* Formula Box */
 .formula-card {
-    background: #ffffff;
+    background: #151c2c;
     padding: 18px 22px;
     border-radius: 12px;
-    border: 1px solid #cbd5e1;
-    border-left: 6px solid #2563eb;
-    color: #1e293b;
-    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
+    border: 1px solid #334155;
+    border-left: 6px solid #3b82f6;
+    color: #e2e8f0;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+.formula-card code {
+    background: #0f172a;
+    color: #60a5fa;
+    padding: 2px 6px;
+    border-radius: 4px;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -197,7 +236,7 @@ def calculate_wp(vendors, criteria):
     result.insert(0, "Ranking", range(1, len(result) + 1))
     return result, normalized_weights, wp_weights
 
-# Jalankan perhitungan awal jika belum ada hasil
+# Hitung awal jika belum ada hasil
 if st.session_state.last_result is None:
     res, norm, wp_w = calculate_wp(st.session_state.vendors, st.session_state.criteria)
     st.session_state.last_result = {"result": res, "normalized": norm, "wp_weights": wp_w}
@@ -218,7 +257,6 @@ def show_add_vendor_modal():
             st.markdown("##### 📝 Nilai Kriteria Penilaian")
             
             scores = {}
-            # Buat grid input 2 kolom agar rapi
             cols = st.columns(2)
             for idx, (_, row) in enumerate(st.session_state.criteria.iterrows()):
                 kode = row["Kode"]
@@ -243,7 +281,6 @@ def show_add_vendor_modal():
                 else:
                     new_row = {"Vendor": nama_vendor.strip(), **scores}
                     st.session_state.vendors = pd.concat([st.session_state.vendors, pd.DataFrame([new_row])], ignore_index=True)
-                    # Otomatis hitung ulang
                     res, norm, wp_w = calculate_wp(st.session_state.vendors, st.session_state.criteria)
                     st.session_state.last_result = {"result": res, "normalized": norm, "wp_weights": wp_w}
                     st.success(f"Vendor '{nama_vendor}' berhasil ditambahkan!")
@@ -272,8 +309,6 @@ with col_act2:
     if st.button("➕ Tambah Vendor", use_container_width=True):
         if dialog_fn:
             show_add_vendor_modal()
-        else:
-            st.info("Buka form di Tab 'Data Vendor' untuk menambah vendor.")
 
 with col_act3:
     if st.button("🔄 Reset Data", use_container_width=True):
@@ -285,9 +320,9 @@ with col_act3:
 
 with col_preset:
     preset_choice = st.selectbox(
-        "⚡ Preset Skenario Bobot Cepat:",
+        "⚡ Preset Skenario Bobot:",
         options=[
-            "Pilih Skenario...",
+            "Pilih Skenario Bobot...",
             "Standar (Default)",
             "Prioritas Efisiensi Biaya (Cost-Focused)",
             "Prioritas Kualitas & Keamanan Teknis",
@@ -315,7 +350,7 @@ with col_preset:
 st.write("")
 
 # =========================
-# TABS UTAMA
+# TABS UTAMA (DENGAN TULISAN JELAS)
 # =========================
 tab_data, tab_result, tab_chart, tab_math = st.tabs([
     "🏢 1. Data & Penilaian Vendor",
@@ -331,7 +366,7 @@ with tab_data:
     col_t1_left, col_t1_right = st.columns([2.8, 1.2])
     
     with col_t1_left:
-        st.markdown("#### 🏢 Matriks Penilaian Vendor")
+        st.markdown("### 🏢 Matriks Penilaian Vendor")
         st.caption("Klik langsung pada sel angka di tabel untuk mengedit nilai (skala 1–100):")
         
         score_cols = st.session_state.criteria["Kode"].tolist()
@@ -355,7 +390,8 @@ with tab_data:
         st.session_state.vendors = edited_vendors
 
     with col_t1_right:
-        st.markdown("#### ⚙️ Kriteria & Bobot")
+        st.markdown("### ⚙️ Kriteria & Bobot")
+        st.caption("Ubah persentase bobot atau jenis kriteria:")
         edited_criteria = st.data_editor(
             st.session_state.criteria,
             use_container_width=True,
@@ -406,7 +442,6 @@ with tab_data:
                 except Exception as ex:
                     st.error(f"Gagal membaca file: {ex}")
 
-# Perhitungan saat tombol Hitung diklik
 if calculate_clicked:
     if st.session_state.vendors.empty:
         st.error("Minimal harus ada 1 vendor!")
@@ -425,10 +460,9 @@ with tab_result:
 
         st.markdown("### 🏆 Podium Peringkat Teratas")
         
-        # Susunan Podium Olimpiade: Posisi 2 (Kiri), Posisi 1 (Tengah - Besar), Posisi 3 (Kanan)
         pod_cols = st.columns([1, 1.2, 1])
         
-        # Runner Up (Juara 2)
+        # Juara 2
         with pod_cols[0]:
             if len(res_data) > 1:
                 v2 = res_data.iloc[1]
@@ -442,14 +476,14 @@ with tab_result:
             else:
                 st.markdown("<div class='podium-card'>-</div>", unsafe_allow_html=True)
 
-        # Juara 1 (Pemenang Utama)
+        # Juara 1
         with pod_cols[1]:
             st.markdown(f"""
             <div class="podium-card podium-1">
-                <div class="podium-rank">🥇 REKOMENDASI UTAMA</div>
-                <div class="podium-title" style="font-size: 24px; color: #166534;">{best_vendor['Vendor']}</div>
+                <div class="podium-rank" style="color:#eab308;">🥇 REKOMENDASI UTAMA</div>
+                <div class="podium-title" style="font-size: 24px; color: #facc15;">{best_vendor['Vendor']}</div>
                 <div class="podium-score" style="font-size: 15px;">Skor Preferensi (V): <b>{best_vendor['Nilai V']:.5f}</b></div>
-                <div style="margin-top: 8px; color: #15803d; font-weight: 700; font-size: 13px;">★ PILIHAN TERBAIK ★</div>
+                <div style="margin-top: 8px; color: #eab308; font-weight: 700; font-size: 13px;">★ PILIHAN TERBAIK ★</div>
             </div>
             """, unsafe_allow_html=True)
 
@@ -467,7 +501,7 @@ with tab_result:
             else:
                 st.markdown("<div class='podium-card'>-</div>", unsafe_allow_html=True)
 
-        # Executive Summary Otomatis
+        # Executive Summary
         st.markdown(f"""
         <div class="summary-box">
             <b>📌 Executive Summary:</b><br>
@@ -481,7 +515,7 @@ with tab_result:
         table_disp["Nilai V"] = table_disp["Nilai V"].apply(lambda x: f"{x:.6f}")
         st.dataframe(table_disp, use_container_width=True, hide_index=True)
 
-        # Export Laporan Excel
+        # Export Excel
         out_excel = BytesIO()
         with pd.ExcelWriter(out_excel, engine="openpyxl") as wr:
             st.session_state.vendors.to_excel(wr, sheet_name="Data Vendor", index=False)
@@ -507,27 +541,23 @@ with tab_chart:
         c_ch1, c_ch2 = st.columns(2)
         
         with c_ch1:
-            st.markdown("#### 📊 Perbandingan Nilai Preferensi (Vektor V)")
+            st.markdown("### 📊 Perbandingan Skor Preferensi (Vektor V)")
             chart_df = res_data.set_index("Vendor")[["Nilai V"]]
-            st.bar_chart(chart_df, color="#1e3a8a")
+            st.bar_chart(chart_df, color="#3b82f6")
 
         with c_ch2:
-            st.markdown("#### 🕸️ Spider / Radar Chart (Profil Vendor)")
+            st.markdown("### 🕸️ Spider / Radar Chart (Profil Vendor)")
             
             crit_names = st.session_state.criteria["Kriteria"].tolist()
             crit_codes = st.session_state.criteria["Kode"].tolist()
             
-            # Buat grafik radar interaktif
             fig_radar = go.Figure()
-            
-            # Ambil maksimal 4 vendor teratas agar grafik tetap bersih
             top_vendors = res_data.head(4)["Vendor"].tolist()
             
             for v_name in top_vendors:
                 v_row = st.session_state.vendors[st.session_state.vendors["Vendor"] == v_name]
                 if not v_row.empty:
                     val_list = [v_row[code].values[0] for code in crit_codes]
-                    # Tutup loop lingkaran radar
                     val_closed = val_list + [val_list[0]]
                     crit_closed = crit_names + [crit_names[0]]
                     
@@ -541,9 +571,15 @@ with tab_chart:
 
             fig_radar.update_layout(
                 polar=dict(
-                    radialaxis=dict(visible=True, range=[0, 100])
+                    radialaxis=dict(visible=True, range=[0, 100], color="#94a3b8", gridcolor="#334155"),
+                    angularaxis=dict(color="#f8fafc", gridcolor="#334155"),
+                    bgcolor="#151c2c"
                 ),
+                paper_bgcolor="rgba(0,0,0,0)",
+                plot_bgcolor="rgba(0,0,0,0)",
+                font=dict(color="#e2e8f0"),
                 showlegend=True,
+                legend=dict(font=dict(color="#e2e8f0")),
                 margin=dict(l=40, r=40, t=30, b=30),
                 height=380
             )
@@ -553,7 +589,7 @@ with tab_chart:
 # TAB 4: DETAIL PERHITUNGAN WP
 # =========================
 with tab_math:
-    st.markdown("#### 📐 Tahapan Perhitungan Weighted Product (WP)")
+    st.markdown("### 📐 Tahapan Perhitungan Weighted Product (WP)")
     
     if st.session_state.last_result is not None:
         det_crit = st.session_state.criteria[["Kode", "Kriteria", "Bobot (%)", "Jenis"]].copy()
