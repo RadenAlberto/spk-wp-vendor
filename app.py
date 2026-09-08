@@ -1,4 +1,3 @@
-
 import streamlit as st
 import pandas as pd
 import numpy as np
@@ -11,40 +10,107 @@ st.set_page_config(
 )
 
 # =========================
-# STYLE
+# STYLE DENGAN KONTRAS TINGGI & ELEGAN
 # =========================
 st.markdown("""
 <style>
-.stApp { background: #f5f7fb; }
-.block-container { padding: 1.5rem 2rem 2rem; max-width: 1500px; }
+/* Background halaman dengan kontras yang jelas */
+.stApp { 
+    background-color: #e9edf4 !important; 
+}
+
+.block-container { 
+    padding: 1.8rem 2.2rem 3rem; 
+    max-width: 1450px; 
+}
+
+/* Hero Banner - Biru Navy Pekat & Kontras */
 .hero {
-    padding: 26px 30px;
-    border-radius: 18px;
-    background: linear-gradient(135deg, #14213d 0%, #1f5b8f 100%);
-    color: white;
-    margin-bottom: 20px;
+    padding: 26px 32px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #0f172a 0%, #1e293b 60%, #1e3a8a 100%);
+    color: #ffffff;
+    box-shadow: 0 6px 18px rgba(15, 23, 42, 0.18);
+    border: 1px solid #334155;
+    margin-bottom: 22px;
 }
-.hero h1 { margin: 0; font-size: 32px; }
-.hero p { margin: 7px 0 0; opacity: .9; }
-.section {
-    background: white;
-    padding: 18px 20px;
-    border-radius: 15px;
-    border: 1px solid #e6e9ef;
-    margin-bottom: 18px;
+.hero h1 { 
+    margin: 0; 
+    font-size: 30px; 
+    font-weight: 800;
+    color: #ffffff !important; 
+    letter-spacing: -0.5px;
 }
-.recommend {
-    background: #eef8f1;
-    border: 1px solid #b9dfc5;
-    border-left: 6px solid #2e8b57;
-    padding: 18px 22px;
+.hero p { 
+    margin: 8px 0 0; 
+    font-size: 15px;
+    color: #cbd5e1 !important; 
+}
+
+/* Metric Cards: Diberi border dan bayangan jelas */
+[data-testid="stMetric"] {
+    background-color: #ffffff !important;
+    border: 1px solid #cbd5e1 !important;
+    padding: 14px 18px !important;
+    border-radius: 12px !important;
+    box-shadow: 0 3px 8px rgba(15, 23, 42, 0.05) !important;
+}
+[data-testid="stMetricLabel"] p {
+    color: #475569 !important;
+    font-weight: 600 !important;
+    font-size: 14px !important;
+}
+[data-testid="stMetricValue"] div {
+    color: #0f172a !important;
+    font-weight: 800 !important;
+    font-size: 26px !important;
+}
+
+/* Banner Rekomendasi Juara (Hijau Solid, High Contrast) */
+.recommend-card {
+    background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%);
+    border: 2px solid #16a34a;
+    border-left: 8px solid #15803d;
+    padding: 20px 24px;
+    border-radius: 14px;
+    box-shadow: 0 4px 12px rgba(22, 163, 74, 0.12);
+    margin-bottom: 15px;
+}
+.recommend-tag {
+    color: #166534;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 1px;
+    text-transform: uppercase;
+}
+.recommend-vendor {
+    color: #14532d;
+    font-size: 28px;
+    font-weight: 900;
+    margin: 4px 0 6px 0;
+}
+.recommend-detail {
+    color: #166534;
+    font-size: 15px;
+}
+
+/* Card Rumus (Biru Tegas, Teks Gelap) */
+.formula-card {
+    background: #ffffff;
+    padding: 16px 20px;
     border-radius: 12px;
+    border: 1px solid #cbd5e1;
+    border-left: 5px solid #2563eb;
+    color: #1e293b;
+    box-shadow: 0 2px 6px rgba(15, 23, 42, 0.04);
 }
-.formula {
-    background: #f8f9fc;
-    padding: 12px 16px;
-    border-radius: 10px;
-    border: 1px solid #e6e9ef;
+
+/* Judul Sub-bagian */
+h3 {
+    color: #0f172a !important;
+    font-weight: 700 !important;
+    margin-top: 15px !important;
+    margin-bottom: 12px !important;
 }
 </style>
 """, unsafe_allow_html=True)
@@ -132,7 +198,7 @@ st.markdown("""
 # =========================
 # TOP ACTIONS
 # =========================
-a, b, c, d = st.columns([1, 1, 1, 4])
+a, b, c, d = st.columns([1.2, 1.2, 1.2, 3.5])
 
 with a:
     if st.button("🔄 Reset Data", use_container_width=True):
@@ -147,6 +213,8 @@ with b:
 with c:
     show_detail = st.toggle("📐 Detail WP", value=True)
 
+st.write("")
+
 # =========================
 # DATA VENDOR
 # =========================
@@ -157,7 +225,6 @@ criteria = st.session_state.criteria.copy()
 
 score_cols = criteria["Kode"].tolist()
 
-# Keep vendor columns aligned with criteria
 for code in score_cols:
     if code not in vendors.columns:
         vendors[code] = 1
@@ -209,7 +276,6 @@ edited_criteria = st.data_editor(
     }
 )
 
-# Ensure codes remain unique and create missing score columns
 if edited_criteria["Kode"].duplicated().any():
     st.error("Kode kriteria tidak boleh sama.")
     st.stop()
@@ -221,13 +287,14 @@ if (edited_criteria["Bobot (%)"] < 0).any():
 st.session_state.criteria = edited_criteria.copy()
 
 total_weight = float(edited_criteria["Bobot (%)"].sum())
+
 m1, m2, m3 = st.columns(3)
 m1.metric("Total Bobot", f"{total_weight:.0f}%")
 m2.metric("Jumlah Vendor", len(edited_vendors))
 m3.metric("Jumlah Kriteria", len(edited_criteria))
 
 if abs(total_weight - 100) > 0.001:
-    st.warning("Total bobot saat ini belum 100%. Sistem tetap dapat menghitung karena bobot akan dinormalisasi otomatis.")
+    st.warning("⚠️ Total bobot saat ini belum 100%. Sistem tetap dapat menghitung karena bobot akan dinormalisasi secara otomatis.")
 
 # =========================
 # CALCULATE
@@ -249,7 +316,6 @@ if calculate_clicked:
         st.error("Nama vendor tidak boleh kosong.")
         st.stop()
 
-    # Re-align vendor score columns
     calc_vendors = edited_vendors.copy()
     for code in edited_criteria["Kode"]:
         if code not in calc_vendors.columns:
@@ -265,7 +331,7 @@ if calculate_clicked:
             "normalized": normalized,
             "wp_weights": wp_weights
         }
-        st.success("Perhitungan Weighted Product berhasil dilakukan.")
+        st.success("✅ Perhitungan Weighted Product berhasil dilakukan.")
     except Exception as e:
         st.error(f"Perhitungan gagal. Pastikan seluruh nilai penilaian berisi angka 1–100. Detail: {e}")
 
@@ -283,14 +349,12 @@ if st.session_state.last_result is not None:
     st.markdown("### 🏆 Hasil Pemilihan Vendor")
 
     st.markdown(f"""
-    <div class="recommend">
-        <div style="font-size:14px;">⭐ VENDOR YANG DIREKOMENDASIKAN</div>
-        <h2 style="margin:5px 0;">{best['Vendor']}</h2>
-        <div>Nilai Vektor V: <b>{best['Nilai V']:.6f}</b> • Ranking: <b>1</b></div>
+    <div class="recommend-card">
+        <div class="recommend-tag">⭐ REKOMENDASI VENDOR TERBAIK</div>
+        <div class="recommend-vendor">{best['Vendor']}</div>
+        <div class="recommend-detail">Nilai Preferensi (Vektor V): <b>{best['Nilai V']:.6f}</b> &nbsp;•&nbsp; Ranking: <b>1</b></div>
     </div>
     """, unsafe_allow_html=True)
-
-    st.write("")
 
     result_display = result.copy()
     result_display["Vektor S"] = result_display["Vektor S"].map(lambda x: f"{x:.6f}")
@@ -329,17 +393,14 @@ if st.session_state.last_result is not None:
         )
 
         st.markdown("""
-        <div class="formula">
-        <b>Rumus Weighted Product:</b>
+        <div class="formula-card">
+        <b>Rumus Perhitungan Weighted Product:</b>
         <br><br>
-        Wj = wj / Σwj
+        1. <b>Normalisasi Bobot:</b> <code>Wj = wj / Σwj</code><br>
+        2. <b>Vektor S:</b> <code>Si = Π (xij)<sup>wj</sup></code><br>
+        3. <b>Vektor V (Preferensi):</b> <code>Vi = Si / ΣSi</code><br>
         <br>
-        Si = Π (xij)<sup>wj</sup>
-        <br>
-        Vi = Si / ΣSi
-        <br><br>
-        <b>Catatan:</b> kriteria <i>Cost</i> menggunakan bobot negatif,
-        sedangkan <i>Benefit</i> menggunakan bobot positif.
+        <span style="color:#0f172a; font-weight:600;">Catatan:</span> Bobot untuk kriteria <b>Cost</b> dikalikan -1 (pangkat negatif), sedangkan <b>Benefit</b> tetap positif.
         </div>
         """, unsafe_allow_html=True)
 
@@ -366,7 +427,7 @@ if st.session_state.last_result is not None:
         use_container_width=False
     )
 else:
-    st.info("Klik **🧮 Hitung WP** terlebih dahulu untuk mengaktifkan export laporan.")
+    st.info("Klik tombol **🧮 Hitung WP** di bagian atas terlebih dahulu untuk mengekspor laporan.")
 
 st.divider()
 st.caption("VendorSelect • SPK Pemilihan Vendor IT • Weighted Product (WP)")
